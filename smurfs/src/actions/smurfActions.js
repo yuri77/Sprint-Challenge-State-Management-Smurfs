@@ -10,7 +10,6 @@ export const getData = () => {
     axios
       .get("http://localhost:3333/smurfs")
       .then(res => {
-        console.log("res", res.data);
         dispatch({ type: FETCH_SMURF_DATA_SUCCESS, payload: res.data });
       })
       .catch(err => {
@@ -20,6 +19,21 @@ export const getData = () => {
   };
 };
 
-export const addSmurf = smurf => {
-  return { type: "ADD_SMURF", payload: smurf };
+// export const addData = smurf => {
+//   return dispatch => {
+//     dispatch({ type: FETCH_SMURF_DATA_START });
+//     axios
+//       .post("http://localhost:3333/smurfs/", smurf)
+//       .then(res => {
+//         console.log("post Request", res);
+//         dispatch({ type: FETCH_SMURF_DATA_SUCCESS, payload: res.data });
+//       })
+//       .catch(err => {
+//         console.log(err);
+//       });
+//   };
+// };
+
+export const addData = smurf => {
+  return { type: FETCH_SMURF_DATA_SUCCESS, payload: smurf };
 };

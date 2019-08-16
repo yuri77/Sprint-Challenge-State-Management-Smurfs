@@ -1,30 +1,28 @@
 import React, { useState } from "react";
-//import { connect } from "react-redux";
+import { connect } from "react-redux";
+import { addData } from "../actions/smurfActions";
 import axios from "axios";
 
 const SmurfForm = props => {
-  const [smurf, setSmurf] = useState([
-    { name: "", age: "", height: "", id: "" }
-  ]);
+  const [smurf, setSmurf] = useState([{ name: "", age: "", height: "" }]);
 
   const handleChange = e => {
-    setSmurf({ ...smurf, [e.target.name]: e.target.value, id: Date.now() });
+    setSmurf({ ...smurf, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = e => {
     e.preventDefault();
-    console.log(smurf);
-
     axios
-      .post("http://localhost:3333/smurfs", smurf)
+      .post("http://localhost:3333/smurfs/", smurf)
       .then(res => {
         console.log("post Request", res);
+        addData(res.data);
       })
       .catch(err => {
         console.log(err);
       });
 
-    setSmurf({ name: "", age: "", height: "", id: "" });
+    setSmurf({ name: "", age: "", height: "" });
   };
 
   return (
@@ -57,4 +55,7 @@ const SmurfForm = props => {
   );
 };
 
-export default SmurfForm;
+export default connect(
+  null,
+  { addData }
+)(SmurfForm);
